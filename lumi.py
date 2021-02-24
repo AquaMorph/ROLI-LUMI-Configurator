@@ -26,6 +26,57 @@ class LUMI:
         msg = mido.Message.from_hex(self.createSysEx(command))
         self.outport.send(msg)
 
+    # MIDI Settings
+    def setMIDIMode(self, mode):
+        return
+
+    def setPitchBendRange(self, bendRange):
+        return
+
+    # MPE
+    def setNoMIDIChannels(self, number):
+        return
+
+    def setMPEZone(self, zone):
+        return
+
+    # Multi Channel
+    def setMIDIStartChannel(self, channel):
+        return
+
+    def setMIDIEndChannel(self, channel):
+        return
+
+    # Single Channel
+    def setMIDIChannel(self, channel):
+        return
+
+    # Pitch
+    def setOctive(self, octive):
+        return
+
+    def setTranspose(self, transpose):
+        return
+
+    # Sensitivity
+    def setStrikeSensitivity(self, sensitivity):
+        return
+
+    def setPressireSensitivity(self, sensitivity):
+        return
+
+    def setLeftSensitivity(self, sensitivity):
+        return
+
+    def setFixedVelocity(self, fixed):
+        return
+
+    def setFixedVelocityValue(self, value):
+        return
+
+    # Keybed State
+    def setActiveMode(self, mode):
+        return
 
     scaleCommands = {
         'major': '10 60 02 00 00 00 00 00',
@@ -52,15 +103,34 @@ class LUMI:
 
     def setScale(self, scale):
         self.sendSysEx(self.scaleCommands[scale])
-    
 
+    def setKey(self, key):
+        return
 
+    def setPitchBendTracking(self, tracking):
+        return
+
+    def setPressureTracking(self, tracking):
+        return
+
+    # Colors
+    def setGlobalKeyColor(self, color):
+        return
+
+    def setRootKeyColor(self, color):
+        return
+
+    # Mode
+    def setColorScheme(self, mode, scheme):
+        return
     
-#inport = mido.open_input('2- LUMI Keys Block 0')
+    def setEnablePitchBend(self, mode, enable):
+        return
+
+    def setEnablePressure(self, mode, enable):
+        return
+
 
 lumi = LUMI('2- LUMI Keys Block 1')
 lumi.setScale('minor')
-
-#print(mido.get_output_names())
-
 
