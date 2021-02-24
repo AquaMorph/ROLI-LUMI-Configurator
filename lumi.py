@@ -149,10 +149,15 @@ class LUMI:
 
     # Colors
     def setGlobalKeyColor(self, color):
-        return
+        self.sendSysEx('10 20 64 3F 00 7F 7F 03')
 
     def setRootKeyColor(self, color):
-        return
+        self.sendSysEx('10 30 64 3F 00 00 7E 03')
+
+    def setBrightness(self, brightness):
+        one = (brightness % 4) * 2
+        two = '{:02X}'.format(int(brightness / 4))
+        self.sendSysEx('10 40 {}4 {} 00 00 00 00'.format(one, two))
 
     # Mode
     def setColorScheme(self, mode, scheme):
@@ -170,10 +175,13 @@ try:
 except:
     print('LUMI not detected')
     exit(1)
-    
+
 lumi = LUMI(lumiOut)
 lumi.setScale('minor')
 lumi.setMIDIMode('multi')
-lumi.setActiveMode(1)
-lumi.setKey('b')
+lumi.setActiveMode(2)
+lumi.setKey('c')
 lumi.setFixedVelocity(False)
+lumi.setGlobalKeyColor('#0BB5FF')
+lumi.setRootKeyColor('#FFFFFF')
+lumi.setBrightness(100)
