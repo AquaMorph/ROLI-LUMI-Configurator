@@ -164,8 +164,9 @@ class LUMI:
     def setEnablePressure(self, mode, enable):
         return
 
-
-lumi = LUMI('2- LUMI Keys Block 1')
+outputDevices = mido.get_output_names()
+lumiOut = next(o for o in outputDevices if 'LUMI Keys' in o)
+lumi = LUMI(lumiOut)
 lumi.setScale('minor')
 lumi.setMIDIMode('multi')
 lumi.setActiveMode(1)
