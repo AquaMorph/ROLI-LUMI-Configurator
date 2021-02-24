@@ -165,7 +165,12 @@ class LUMI:
         return
 
 outputDevices = mido.get_output_names()
-lumiOut = next(o for o in outputDevices if 'LUMI Keys' in o)
+try:
+    lumiOut = next(o for o in outputDevices if 'LUMI Keys' in o)
+except:
+    print('LUMI not detected')
+    exit(1)
+    
 lumi = LUMI(lumiOut)
 lumi.setScale('minor')
 lumi.setMIDIMode('multi')
