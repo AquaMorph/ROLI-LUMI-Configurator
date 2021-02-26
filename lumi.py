@@ -189,10 +189,15 @@ class LUMI:
         one = (scheme % 4) * 2
         two = '{:02X}'.format(int(scheme / 4))
         self.sendSysEx('10 {}0 {}{} {} 00 00 00 00'.format(cmdOne, one, cmdTwo, two))
-        return
     
     def setEnablePitchBend(self, mode, enable):
-        return
+        if enable:
+            enable = 2
+        else:
+            enable = 0
+        cmdOne = '{:X}'.format(7-mode)
+        cmdTwo = '{:X}'.format(0xB+mode)
+        self.sendSysEx('10 {}0 {}{} 00 00 00 00 00'.format(cmdOne, enable, cmdTwo))
 
     def setEnablePressure(self, mode, enable):
         return
@@ -217,3 +222,7 @@ lumi.setColorScheme(1, 1)
 lumi.setColorScheme(2, 1)
 lumi.setColorScheme(3, 'pro')
 lumi.setColorScheme(4, 1)
+lumi.setEnablePitchBend(1, True)
+lumi.setEnablePitchBend(2, True)
+lumi.setEnablePitchBend(3, True)
+lumi.setEnablePitchBend(4, True)
