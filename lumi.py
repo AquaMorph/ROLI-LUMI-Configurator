@@ -200,7 +200,13 @@ class LUMI:
         self.sendSysEx('10 {}0 {}{} 00 00 00 00 00'.format(cmdOne, enable, cmdTwo))
 
     def setEnablePressure(self, mode, enable):
-        return
+        if enable:
+            enable = 2
+        else:
+            enable = 0
+        cmdOne = '{:X}'.format(8-mode)
+        cmdTwo = '{:X}'.format(0xB+mode)
+        self.sendSysEx('10 {}0 {}{} 00 00 00 00 00'.format(cmdOne, enable, cmdTwo))
 
 outputDevices = mido.get_output_names()
 try:
@@ -226,3 +232,7 @@ lumi.setEnablePitchBend(1, True)
 lumi.setEnablePitchBend(2, True)
 lumi.setEnablePitchBend(3, True)
 lumi.setEnablePitchBend(4, True)
+lumi.setEnablePressure(1, True)
+lumi.setEnablePressure(2, True)
+lumi.setEnablePressure(3, True)
+lumi.setEnablePressure(4, True)
