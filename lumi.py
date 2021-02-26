@@ -161,6 +161,34 @@ class LUMI:
 
     # Mode
     def setColorScheme(self, mode, scheme):
+
+        # Mode error checking
+        if (mode < 1 or mode > 4):
+            print('ERROR: {} is not a valid mode'.format(mode))
+            exit(1)
+
+        # Converts name input
+        if isinstance(scheme, str):
+            scheme = scheme.lower()
+            if scheme == 'pro':
+                scheme = 0
+            elif scheme == 'user':
+                scheme = 1
+            elif scheme == 'paino':
+                scheme = 2
+            elif scheme == 'stage':
+                scheme = 3
+            elif scheme == 'rainbow':
+                scheme = 4
+            else:
+                print('ERROR: Unrecoginized color scheme {}'.format(scheme))
+                exit(1)
+
+        cmdOne = '{:X}'.format(5-mode)
+        cmdTwo = '{:X}'.format(0xB+mode)
+        one = (scheme % 4) * 2
+        two = '{:02X}'.format(int(scheme / 4))
+        self.sendSysEx('10 {}0 {}{} {} 00 00 00 00'.format(cmdOne, one, cmdTwo, two))
         return
     
     def setEnablePitchBend(self, mode, enable):
@@ -185,3 +213,7 @@ lumi.setFixedVelocity(False)
 lumi.setGlobalKeyColor('#0BB5FF')
 lumi.setRootKeyColor('#FFFFFF')
 lumi.setBrightness(100)
+lumi.setColorScheme(1, 1)
+lumi.setColorScheme(2, 1)
+lumi.setColorScheme(3, 'pro')
+lumi.setColorScheme(4, 1)
