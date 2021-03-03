@@ -86,8 +86,8 @@ class LUMI:
 
     # Single Channel
     def setMIDIChannel(self, channel):
-        return
-
+        self.setMIDIStartChannel(channel)
+        
     # Pitch
     def setOctive(self, octive):
         return
@@ -245,7 +245,7 @@ except:
 
 lumi = LUMI(lumiOut)
 lumi.setScale('minor')
-lumi.setMIDIMode('multi')
+lumi.setMIDIMode('single')
 lumi.setActiveMode(0)
 lumi.setKey('c')
 lumi.setFixedVelocity(False)
@@ -269,3 +269,4 @@ lumi.setNoMIDIChannels(5)
 lumi.setMPEZone('upper')
 lumi.setMIDIStartChannel(1)
 lumi.setMIDIEndChannel(16)
+lumi.setMIDIChannel(16)
