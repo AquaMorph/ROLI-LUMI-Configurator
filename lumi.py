@@ -59,6 +59,10 @@ class LUMI:
         self.sendSysEx('10 10 {}1 {} 00 00 00 00'.format(one, two))
 
     def setMPEZone(self, zone):
+        if zone.lower() == 'lower' or zone.lower() == 'lower zone':
+            self.sendSysEx('10 00 05 00 00 00 00 00')
+        elif zone.lower() == 'upper' or zone.lower() == 'upper zone':
+            self.sendSysEx('10 00 25 00 00 00 00 00')
         return
 
     # Multi Channel
@@ -250,3 +254,4 @@ lumi.setEnablePressure(3, True)
 lumi.setEnablePressure(4, True)
 lumi.setPitchBendRange(45)
 lumi.setNoMIDIChannels(5)
+lumi.setMPEZone('upper')
