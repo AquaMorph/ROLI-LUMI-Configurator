@@ -67,7 +67,13 @@ class LUMI:
 
     # Multi Channel
     def setMIDIStartChannel(self, channel):
-        return
+        # Error checking
+        if (channel < 1 or channel > 16):
+            print('ERROR: MIDI Start Channel of {} is not between 1 and 16'.format(channel))
+            exit(1)
+        one = (channel % 4) * 2
+        two = '{:02X}'.format(int(channel / 4))
+        self.sendSysEx('10 00 {}0 {} 00 00 00 00'.format(one, two))
 
     def setMIDIEndChannel(self, channel):
         return
@@ -233,7 +239,7 @@ except:
 
 lumi = LUMI(lumiOut)
 lumi.setScale('minor')
-lumi.setMIDIMode('mpe')
+lumi.setMIDIMode('multi')
 lumi.setActiveMode(0)
 lumi.setKey('c')
 lumi.setFixedVelocity(False)
@@ -255,3 +261,4 @@ lumi.setEnablePressure(4, True)
 lumi.setPitchBendRange(45)
 lumi.setNoMIDIChannels(5)
 lumi.setMPEZone('upper')
+lumi.setMIDIStartChannel(1)
