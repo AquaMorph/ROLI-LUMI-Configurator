@@ -40,7 +40,13 @@ class LUMI:
         return
 
     def setPitchBendRange(self, bendRange):
-        return
+        # Mode error checking
+        if (bendRange < 1 or bendRange > 96):
+            print('ERROR: Pitch Bend Range of {} is not between 1 and 96'.format(bendRange))
+            exit(1)
+        one = (bendRange % 4) * 2
+        two = '{:02X}'.format(int(bendRange / 4))
+        self.sendSysEx('10 30 {}0 {} 00 00 00 00'.format(one, two))
 
     # MPE
     def setNoMIDIChannels(self, number):
@@ -236,3 +242,4 @@ lumi.setEnablePressure(1, True)
 lumi.setEnablePressure(2, True)
 lumi.setEnablePressure(3, True)
 lumi.setEnablePressure(4, True)
+lumi.setPitchBendRange(45)
