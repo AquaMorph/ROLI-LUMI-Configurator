@@ -40,7 +40,7 @@ class LUMI:
         return
 
     def setPitchBendRange(self, bendRange):
-        # Mode error checking
+        # Error checking
         if (bendRange < 1 or bendRange > 96):
             print('ERROR: Pitch Bend Range of {} is not between 1 and 96'.format(bendRange))
             exit(1)
@@ -50,7 +50,13 @@ class LUMI:
 
     # MPE
     def setNoMIDIChannels(self, number):
-        return
+        # Error checking
+        if (number < 1 or number > 15):
+            print('ERROR: No. MIDI Channels of {} is not between 1 and 15'.format(number))
+            exit(1)
+        one = (number % 4) * 2
+        two = '{:02X}'.format(int(number / 4))
+        self.sendSysEx('10 10 {}1 {} 00 00 00 00'.format(one, two))
 
     def setMPEZone(self, zone):
         return
@@ -223,8 +229,8 @@ except:
 
 lumi = LUMI(lumiOut)
 lumi.setScale('minor')
-lumi.setMIDIMode('multi')
-lumi.setActiveMode(2)
+lumi.setMIDIMode('mpe')
+lumi.setActiveMode(0)
 lumi.setKey('c')
 lumi.setFixedVelocity(False)
 lumi.setGlobalKeyColor('#0BB5FF')
@@ -243,3 +249,4 @@ lumi.setEnablePressure(2, True)
 lumi.setEnablePressure(3, True)
 lumi.setEnablePressure(4, True)
 lumi.setPitchBendRange(45)
+lumi.setNoMIDIChannels(5)
