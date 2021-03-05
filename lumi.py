@@ -115,7 +115,13 @@ class LUMI:
         self.sendSysEx('10 50 {}1 {} 00 00 00 00'.format(one, two))
 
     def setLiftSensitivity(self, sensitivity):
-        return
+        # Error checking
+        if (sensitivity < 0 or sensitivity > 127):
+            print('ERROR: Lift Sensitivity of {} is not between 1 and 127'.format(sensitivity))
+            exit(1)
+        one = (sensitivity % 4) * 2
+        two = '{:02X}'.format(int(sensitivity / 4))
+        self.sendSysEx('10 60 {}1 {} 00 00 00 00'.format(one, two))
 
     def setFixedVelocity(self, fixed):
         if fixed:
@@ -284,3 +290,4 @@ lumi.setMIDIEndChannel(16)
 lumi.setMIDIChannel(16)
 lumi.setStrikeSensitivity(63)
 lumi.setPressureSensitivity(127)
+lumi.setLiftSensitivity(127)
